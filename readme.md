@@ -1,4 +1,50 @@
 
+This fork is a guide for installing ly for Artix-runit.
+
+# Steps for using with Artix-runit
+
+Whilst I procrastinate changing files and adding build scripts for automatic installing, these are the steps i've taken to install ly on a fresh Artix install.
+
+Prerequisites:
+ - A functional .xinitrc OR a window manager with a .service file (I used awesomewm)
+
+### Building:
+Building ly the standard way is sufficient for a fresh install. NOTE: don't install anything. ly only has install scripts for Arch Runit and other distros, not Artix-Runit.
+```
+$ make
+```
+
+In the `bin/` directory, you will find the `ly` executable. I've copied this into `/usr/bin/` for system wide access. 
+
+### Config
+A number of config files need to be placed in the right places for ly to work correctly. 
+
+```
+$ cd ly   # We are in the ly directory
+$ mkdir /etc/ly   # Make sure the config dir exists
+$ cp res/config.ini /etc/ly   # Copy the config file. You can modify this file as needed
+$ cp res/wsetup.sh /etc/ly
+$ cp res/xsetup.sh /etc/ly
+
+# Language files
+$ mkdir /etc/ly/lang
+$ cp res/lang/* /etc/ly/lang   # Copy lang files
+
+# Pam files (for authentication)
+$ cp res/pam.d/ly /etc/pam.d   # THIS IS IMPORTANT OTHERWISE YOU CAN'T LOGIN
+```
+Don't forget to disable a tty service for ly to use. The default is tty2 which can be disabled like so with runit: 
+```
+$ rm /run/runit/service/agetty-tty2 
+```
+
+Lastly, the ly service needs to be enabled
+```
+$ ln -s /etc/runit/sv/ly /run/runit/service
+```
+
+If all goes according to plan, next time you boot, ly should take over and display a TUI login console
+
 # Ly - a TUI display manager
 ![Ly screenshot](https://user-images.githubusercontent.com/5473047/88958888-65efbf80-d2a1-11ea-8ae5-3f263bce9cce.png "Ly screenshot")
 
