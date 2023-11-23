@@ -38,7 +38,14 @@ Don't forget to disable a tty service for ly to use. The default is tty2 which c
 $ rm /run/runit/service/agetty-tty2 
 ```
 
-Lastly, the ly service needs to be enabled
+### Enabling Ly service
+
+To enable the service, we need to copy the `ly-runit-service` directory to the services directory. I've renamed the service as `ly`
+```
+$ cp -r res/ly-runit-service /etc/runit/sv/ly
+```
+
+Lastly, the ly service needs to be enabled using runit.
 ```
 $ ln -s /etc/runit/sv/ly /run/runit/service
 ```
