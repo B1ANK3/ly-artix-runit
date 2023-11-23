@@ -44,6 +44,13 @@ To enable the service, we need to copy the `ly-runit-service` directory to the s
 ```
 $ cp -r res/ly-runit-service /etc/runit/sv/ly
 ```
+*IMPORTANT* 
+The service files included do NOT have executing priveledges, which you need for runit to start. 
+```
+$ chmod +x /etc/runit/sv/ly/run
+$ chmod +x /etc/runit/sv/ly/finish
+$ chmod +x /etc/runit/sv/ly/conf
+```
 
 Lastly, the ly service needs to be enabled using runit.
 ```
