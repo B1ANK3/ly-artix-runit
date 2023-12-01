@@ -1,6 +1,13 @@
 
 This fork is a guide for installing ly for Artix-runit.
 
+# BEFORE INSTALLING
+I am unable to confirm this bug as I haven't done proper testing, but when I first installed `ly` using the below method, there was a bug when logging out of the session where input devices were unloaded prematurely.
+I was running X11 and the server unloaded devices so that when the X server is started again by `ly`, no input is received making the desktop unresponsive but the system still works (SSH worked fine).
+I have thus reinstalled Artix from scratch without `ly` and instead using the default tty and `~/.xinitrc` to initialize and login. 
+
+I honestly don't know if it is a `ly` bug and I don't have the patience to reinstall a clean OS to test. If you come across this situation, you can mostly narrow it down to `ly` working incorrectly.
+
 # Steps for using with Artix-runit
 
 Whilst I procrastinate changing files and adding build scripts for automatic installing, these are the steps i've taken to install ly on a fresh Artix install.
